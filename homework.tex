@@ -1,0 +1,704 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{BI-PST homework}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{case0222 - Cholesterol In Urban And Rural
+Guatemalans}\label{case0222---cholesterol-in-urban-and-rural-guatemalans}
+
+\url{https://www.rdocumentation.org/packages/Sleuth2/versions/2.0-4/topics/ex0222}
+
+\subsection{Vypracovali (všichni cvičení st
+14:30)}\label{vypracovali-vux161ichni-cviux10denuxed-st-1430}
+
+\begin{itemize}
+\tightlist
+\item
+  Matyáš Skalický (skalimat)
+\item
+  Martin Vastl (vastlmar)
+\item
+  Matej Choma (chomamat)
+\end{itemize}
+
+\subsection{Popis dat}\label{popis-dat}
+
+Dataset pochází ze studie provedené na guatemalských indiánech. Míra
+cholesterolu byla změřena celkem 94 jedincům a byl zaznamenán jejich
+původ. Bylo naměřeno 49 pozorování na venkově a 45 ve městě.
+
+\subsection{Formát}\label{formuxe1t}
+
+Dataframe obsahuje 94 pozorování na následujících 2 proměnných:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Cholesterol} - Množství cholesterolu v krvi člověka (v mg/l).
+\item
+  \textbf{Group} - Proměnná obsahující hodnoty "Rural" a "Urban"
+  označující, jestli je subjekt z venkova, nebo z města.
+\end{itemize}
+
+\subsection{Zdroj}\label{zdroj}
+
+Ramsey, F.L. and Schafer, D.W. (2002). The Statistical Sleuth: A Course
+in Methods of Data Analysis (2nd ed), Duxbury.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{library}\PY{p}{(}Sleuth2\PY{p}{)}
+        str\PY{p}{(}ex0222\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':   94 obs. of  2 variables:
+ \$ Cholesterol: num  133 134 155 170 175 179 181 184 188 189 {\ldots}
+ \$ Group      : Factor w/ 2 levels "Rural","Urban": 2 2 2 2 2 2 2 2 2 2 {\ldots}
+
+    \end{Verbatim}
+
+\section{Úkoly}
+
+    \subsection{Úkol 1}\label{uxfakol-1}
+    % \subsubsection{Úkol 1}\label{uxfakol-1}
+
+\begin{quote}
+(1b) Načtěte datový soubor a rozdělte sledovanou proměnnou na příslušné
+dvě pozorované skupiny. Data stručně popište. Pro každu skupinu zvlášť
+odhadněte střední hodnotu, rozptyl a medián příslušného rozdělení.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} rural \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{subset}\PY{p}{(}ex0222\PY{p}{,} Group\PY{o}{==}\PY{l+s}{\PYZdq{}}\PY{l+s}{Rural\PYZdq{}}\PY{p}{,} Cholesterol\PY{p}{,} drop\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+        urban \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{subset}\PY{p}{(}ex0222\PY{p}{,} Group\PY{o}{==}\PY{l+s}{\PYZdq{}}\PY{l+s}{Urban\PYZdq{}}\PY{p}{,} Cholesterol\PY{p}{,} drop\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Subjekty z venkova:}
+    % \emph{Subjekty z venkova:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Rural area indians:\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ER =\PYZdq{}}\PY{p}{,} \PY{k+kp}{mean}\PY{p}{(}rural\PY{p}{)}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{varR =\PYZdq{}}\PY{p}{,} var\PY{p}{(}rural\PY{p}{)}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{median =\PYZdq{}}\PY{p}{,} median\PY{p}{(}rural\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Rural area indians:
+ER = 157 
+varR = 1008.458 
+median = 152
+    \end{Verbatim}
+
+    \subsubsection{Subjekty z města:}
+    % \emph{Subjekty z města:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Urban area indians:\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{EU =\PYZdq{}}\PY{p}{,} \PY{k+kp}{mean}\PY{p}{(}urban\PY{p}{)}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{varU =\PYZdq{}}\PY{p}{,} var\PY{p}{(}urban\PY{p}{)}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{median =\PYZdq{}}\PY{p}{,} median\PY{p}{(}urban\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Urban area indians:
+EU = 216.8667 
+varU = 1593.618 
+median = 206
+    \end{Verbatim}
+\clearpage
+    \subsection{Úkol 2}\label{ux16fkol-2}
+
+\begin{quote}
+(1b) Pro každou skupinu zvlášť odhadněte hustotu a distribuční funkci
+pomocí histogramu a empirické distribuční funkce.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} par\PY{p}{(}mfrow \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{2}\PY{p}{)}\PY{p}{,}  pty\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{s\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} rural}
+        hist\PY{p}{(}rural\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{,} main\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Rural \PYZhy{} histogram\PYZdq{}}\PY{p}{,} probability\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,}
+            xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{cholesterol mg/l\PYZdq{}}\PY{p}{)}
+        plot.ecdf\PY{p}{(}rural\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{,} main\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Rural \PYZhy{} ecdf\PYZdq{}}\PY{p}{,} xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{cholesterol mg/l\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} urban}
+        hist\PY{p}{(}urban\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,} main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Urban \PYZhy{} histogram\PYZdq{}}\PY{p}{,} probability\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} 
+            xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{cholesterol mg/l\PYZdq{}}\PY{p}{)}
+        plot.ecdf\PY{p}{(}urban\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,} main\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Urban \PYZhy{} ecdf\PYZdq{}}\PY{p}{,} xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{cholesterol mg/l\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{homework_files/homework_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+
+\clearpage   
+    \subsection{Úkol 3}\label{uxfakol-3}
+
+\begin{quote}
+(3b) Pro každou skupinu zvlášť najděte nejbližší rozdělení: Odhadněte
+parametry normálního, exponenciálního a rovnoměrného rozdělení. Zaneste
+příslušné hustoty s odhadnutými parametry do grafů histogramu.
+Diskutujte, které z rozdělení odpovídá pozorovaným datům nejlépe.
+\end{quote}
+
+    \paragraph{Odhady rozdělení}\label{odhady-rozdux11blenuxed}\mbox{}\\
+
+Pro provedení odhadu jsou využity funkce \emph{mean()} a \emph{sd()}
+zabudované do standardní knihovny jazyka R. Odhad je proveden shodně i
+pro množinu urban.
+
+Pro odhad normálního a exponenciálního rozdělení jsme využili momentovou
+metodu. Pro odhad uniformního rozdělení metodu maximální věrohodnosti.
+
+\paragraph{Normální rozdělení}\label{normuxe1lnuxed-rozdux11blenuxed}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{EX =}\StringTok{ }\KeywordTok{mean}\NormalTok{(rural)}
+\NormalTok{s =}\StringTok{ }\KeywordTok{sd}\NormalTok{(rural)}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{Exponenciální
+rozdělení}\label{exponenciuxe1lnuxed-rozdux11blenuxed}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lambda =}\StringTok{ }\DecValTok{1}\NormalTok{/}\KeywordTok{mean}\NormalTok{(rural)}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{Uniformní rozdělení}\label{uniformnuxed-rozdux11blenuxed}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a =}\StringTok{ }\KeywordTok{min}\NormalTok{(rural)}
+\NormalTok{b =}\StringTok{ }\KeywordTok{max}\NormalTok{(rural)}
+\end{Highlighting}
+\end{Shaded}
+\clearpage 
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} x \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{seq}\PY{p}{(}\PY{k+kp}{min}\PY{p}{(}rural\PY{p}{)}\PY{p}{,} \PY{k+kp}{max}\PY{p}{(}rural\PY{p}{)}\PY{p}{,} length\PY{o}{=}\PY{l+m}{100}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} hodnoty pro jednotlivá rozložení}
+         y\PYZus{}norm \PY{o}{\PYZlt{}\PYZhy{}} dnorm\PY{p}{(}x\PY{p}{,} mean\PY{o}{=}\PY{k+kp}{mean}\PY{p}{(}rural\PY{p}{)}\PY{p}{,} sd\PY{o}{=}sd\PY{p}{(}rural\PY{p}{)}\PY{p}{)}
+         y\PYZus{}exp \PY{o}{\PYZlt{}\PYZhy{}} dexp\PY{p}{(}x\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{k+kp}{mean}\PY{p}{(}rural\PY{p}{)}\PY{p}{)}
+         y\PYZus{}unif \PY{o}{\PYZlt{}\PYZhy{}} dunif\PY{p}{(}x\PY{p}{,} min\PY{o}{=}\PY{k+kp}{min}\PY{p}{(}rural\PY{p}{)}\PY{p}{,} max\PY{o}{=}\PY{k+kp}{max}\PY{p}{(}rural\PY{p}{)}\PY{p}{)}
+         
+         hist\PY{p}{(}rural\PY{p}{,} probability\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} main\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Rural \PYZhy{} odhady rozdeleni\PYZdq{}}\PY{p}{,} xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{cholesterol mg/l\PYZdq{}}\PY{p}{,} 
+            ylab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{hustota\PYZdq{}}\PY{p}{)}
+         lines\PY{p}{(}x\PY{p}{,} y\PYZus{}norm\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,} lwd\PY{o}{=}\PY{l+m}{2}\PY{p}{)}
+         lines\PY{p}{(}x\PY{p}{,} y\PYZus{}exp\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{violet\PYZdq{}}\PY{p}{,} lwd\PY{o}{=}\PY{l+m}{2}\PY{p}{)} 
+         lines\PY{p}{(}x\PY{p}{,} y\PYZus{}unif\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{,} lwd\PY{o}{=}\PY{l+m}{2}\PY{p}{)}
+         
+         legend\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{topleft\PYZdq{}}\PY{p}{,} inset\PY{o}{=}\PY{l+m}{0.037}\PY{p}{,} fill\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{violet\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                legend\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{normalni rozdeleni\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{exponencialni rozdeleni\PYZdq{}}\PY{p}{,}
+                \PY{l+s}{\PYZdq{}}\PY{l+s}{uniformni rozdeleni\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{homework_files/homework_12_0.png}
+    \end{center}
+    % { \hspace*{\fill} \\}
+\clearpage 
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} x \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{seq}\PY{p}{(}\PY{k+kp}{min}\PY{p}{(}urban\PY{p}{)}\PY{p}{,} \PY{k+kp}{max}\PY{p}{(}urban\PY{p}{)}\PY{p}{,} length\PY{o}{=}\PY{l+m}{40}\PY{p}{)}
+        
+        y\PYZus{}norm \PY{o}{\PYZlt{}\PYZhy{}} dnorm\PY{p}{(}x\PY{p}{,} mean\PY{o}{=}\PY{k+kp}{mean}\PY{p}{(}urban\PY{p}{)}\PY{p}{,} sd\PY{o}{=}sd\PY{p}{(}urban\PY{p}{)}\PY{p}{)}
+        y\PYZus{}exp \PY{o}{\PYZlt{}\PYZhy{}} dexp\PY{p}{(}x\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{k+kp}{mean}\PY{p}{(}urban\PY{p}{)}\PY{p}{)}
+        y\PYZus{}unif \PY{o}{\PYZlt{}\PYZhy{}} dunif\PY{p}{(}x\PY{p}{,} min\PY{o}{=}\PY{k+kp}{min}\PY{p}{(}urban\PY{p}{)}\PY{p}{,} max\PY{o}{=}\PY{k+kp}{max}\PY{p}{(}urban\PY{p}{)}\PY{p}{)}
+        
+        hist\PY{p}{(}urban\PY{p}{,} probability\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} main\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Urban \PYZhy{} odhady rozdeleni\PYZdq{}}\PY{p}{,} xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{cholesterol mg/l\PYZdq{}}\PY{p}{,} 
+            ylab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{hustota\PYZdq{}}\PY{p}{)}
+        lines\PY{p}{(}x\PY{p}{,} y\PYZus{}norm\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,} lwd\PY{o}{=}\PY{l+m}{2}\PY{p}{)}
+        lines\PY{p}{(}x\PY{p}{,} y\PYZus{}exp\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{violet\PYZdq{}}\PY{p}{,} lwd\PY{o}{=}\PY{l+m}{2}\PY{p}{)} 
+        lines\PY{p}{(}x\PY{p}{,} y\PYZus{}unif\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{,} lwd\PY{o}{=}\PY{l+m}{2}\PY{p}{)}
+        
+        legend\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{topleft\PYZdq{}}\PY{p}{,} inset\PY{o}{=}\PY{l+m}{0.037}\PY{p}{,} fill\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{violet\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+               legend\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{normalni rozdeleni\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{exponencialni rozdeleni\PYZdq{}}\PY{p}{,}
+               \PY{l+s}{\PYZdq{}}\PY{l+s}{uniformni rozdeleni\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{homework_files/homework_13_0.png}
+    \end{center}
+
+   \subsection{Úkol 4}\label{uxfakol-4}
+
+\begin{quote}
+(1b) Pro každou skupinu zvlášť vygenerujte náhodný výběr o 100 hodnotách
+z rozdělení, které jste zvolili jako nejbližší, s parametry odhadnutými
+v předchozím bodě. Porovnejte histogram simulovaných hodnot s
+pozorovanými daty.
+\end{quote}
+
+\noindent Na náš dataset se nejvíc hodí normální rozdělení. Parametry jsme odhadli
+pomocí knihovních funkcí \emph{mean()} a \emph{sd()}. Samotný náhodný
+výběr jsme vygenerovali následujícím příkazem:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DataTypeTok{mean=}\KeywordTok{mean}\NormalTok{(urban), }\DataTypeTok{sd=}\KeywordTok{sd}\NormalTok{(urban))}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} y \PY{o}{\PYZlt{}\PYZhy{}} rnorm\PY{p}{(}\PY{l+m}{100}\PY{p}{,} mean\PY{o}{=}\PY{k+kp}{mean}\PY{p}{(}urban\PY{p}{)}\PY{p}{,} sd\PY{o}{=}sd\PY{p}{(}urban\PY{p}{)}\PY{p}{)}
+         
+    hist\PY{p}{(}urban\PY{p}{,} probability\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} col\PY{o}{=}rgb\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0.5}\PY{p}{)}\PY{p}{,} ylim\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0.012}\PY{p}{)}\PY{p}{,}
+        xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{cholesterol mg/l\PYZdq{}}\PY{p}{,} ylab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{hustota\PYZdq{}}\PY{p}{,} breaks\PY{o}{=}\PY{l+m}{6}\PY{p}{)}
+    hist\PY{p}{(}y\PY{p}{,} probability\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} col\PY{o}{=}rgb\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{p}{,} \PY{l+m}{0.5}\PY{p}{)}\PY{p}{,} add\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} breaks\PY{o}{=}\PY{l+m}{6}\PY{p}{)}
+    legend\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{topleft\PYZdq{}}\PY{p}{,} inset\PY{o}{=}\PY{l+m}{0.037}\PY{p}{,} fill\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+            legend\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{namerene hodnoty\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{odhad\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{homework_files/homework_16_0.png}
+    \end{center}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} y \PY{o}{\PYZlt{}\PYZhy{}} rnorm\PY{p}{(}\PY{l+m}{100}\PY{p}{,} mean\PY{o}{=}\PY{k+kp}{mean}\PY{p}{(}rural\PY{p}{)}\PY{p}{,} sd\PY{o}{=}sd\PY{p}{(}rural\PY{p}{)}\PY{p}{)}
+         
+    hist\PY{p}{(}rural\PY{p}{,} probability\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} col\PY{o}{=}rgb\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0.5}\PY{p}{)}\PY{p}{,}
+        xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{cholesterol mg/l\PYZdq{}}\PY{p}{,} ylab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{hustota\PYZdq{}}\PY{p}{,} breaks\PY{o}{=}\PY{l+m}{6}\PY{p}{)}
+    hist\PY{p}{(}y\PY{p}{,} probability\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} col\PY{o}{=}rgb\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{p}{,} \PY{l+m}{0.5}\PY{p}{)}\PY{p}{,} add\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} breaks\PY{o}{=}\PY{l+m}{6}\PY{p}{)}
+    legend\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{topleft\PYZdq{}}\PY{p}{,} inset\PY{o}{=}\PY{l+m}{0.037}\PY{p}{,} fill\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+            legend\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{namerene hodnoty\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{odhad\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{homework_files/homework_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+\clearpage   
+    \subsection{Úkol 5}\label{uxfakol-5}
+
+\begin{quote}
+(1b) Pro každou skupinu zvlášť spočítejte oboustranný 95\% konfidenční
+interval pro střední hodnotu.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} EU \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{mean}\PY{p}{(}urban\PY{p}{)}
+        s \PY{o}{\PYZlt{}\PYZhy{}} sd\PY{p}{(}urban\PY{p}{)}
+        n \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}urban\PY{p}{)}
+        error \PY{o}{\PYZlt{}\PYZhy{}} qt\PY{p}{(}\PY{l+m}{0.975}\PY{p}{,} df\PY{o}{=}n\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{o}{*}s\PY{o}{/}\PY{k+kp}{sqrt}\PY{p}{(}n\PY{p}{)}
+        left \PY{o}{\PYZlt{}\PYZhy{}} EU\PY{o}{\PYZhy{}}error
+        right \PY{o}{\PYZlt{}\PYZhy{}} EU\PY{o}{+}error
+        
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{oboustranný 95\PYZpc{} konfidenční interval pro střední hodnotu urban:\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{(\PYZdq{}}\PY{p}{,}left\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{, \PYZdq{}}\PY{p}{,} right\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{)\PYZbs{}n\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+oboustranný 95\% konfidenční interval pro střední hodnotu urban:
+( 204.8733 ,  228.86 )
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} ER \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{mean}\PY{p}{(}rural\PY{p}{)}
+        s \PY{o}{\PYZlt{}\PYZhy{}} sd\PY{p}{(}rural\PY{p}{)}
+        n \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}rural\PY{p}{)}
+        error \PY{o}{\PYZlt{}\PYZhy{}} qt\PY{p}{(}\PY{l+m}{0.975}\PY{p}{,} df\PY{o}{=}n\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{o}{*}s\PY{o}{/}\PY{k+kp}{sqrt}\PY{p}{(}n\PY{p}{)}
+        left \PY{o}{\PYZlt{}\PYZhy{}} ER\PY{o}{\PYZhy{}}error
+        right \PY{o}{\PYZlt{}\PYZhy{}} ER\PY{o}{+}error
+        
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{oboustranný 95\PYZpc{} konfidenční interval pro střední hodnotu rural:\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{(\PYZdq{}}\PY{p}{,}left\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{, \PYZdq{}}\PY{p}{,} right\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{)\PYZbs{}n\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+oboustranný 95\% konfidenční interval pro střední hodnotu rural:
+( 147.8785 ,  166.1215 )
+
+    \end{Verbatim}
+
+\clearpage
+    \subsection{Úkol 6}\label{uxfakol-6}
+
+\begin{quote}
+(1b) Pro každou skupinu zvlášť otestujte na hladině významnosti 5\%
+hypotézu, zda je střední hodnota rovná hodnotě K (parametr úlohy), proti
+oboustranné alternativě. Můžete použít buď výsledek z předešlého bodu,
+nebo výstup z příslušné vestavěné funkce vašeho softwaru.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} alternative \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}
+         K\PYZus{}parameter \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{2}
+         conf\PYZus{}level \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{0.95}
+         t.test\PY{p}{(}urban\PY{p}{,} mu\PY{o}{=}K\PYZus{}parameter\PY{p}{,} alternative\PY{o}{=}alternative\PY{p}{,} conf.level \PY{o}{=} conf\PYZus{}level\PY{p}{)}
+         t.test\PY{p}{(}rural\PY{p}{,} mu\PY{o}{=}K\PYZus{}parameter\PY{p}{,} alternative\PY{o}{=}alternative\PY{p}{,} conf.level \PY{o}{=} conf\PYZus{}level\PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+
+    One Sample t-test
+
+data:  urban
+t = 36.106, df = 44, p-value < 2.2e-16
+alternative hypothesis: true mean is not equal to 2
+95 percent confidence interval:
+ 204.8733 228.8600
+sample estimates:
+mean of x 
+ 216.8667 
+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+    One Sample t-test
+
+data:  rural
+t = 34.167, df = 48, p-value < 2.2e-16
+alternative hypothesis: true mean is not equal to 2
+95 percent confidence interval:
+ 147.8785 166.1215
+sample estimates:
+mean of x 
+      157 
+
+    \end{verbatim}
+
+    
+\paragraph{Rural:}Testovaná hodnota $ER=K=2$ v intervalu neleží, takže můžeme
+hypotézu vyváženosti na hladině významnosti 5\% zamítnout ve prospěch
+alternativy, že je pravděpodobnost, že $ER=2$ je významně odlišná.
+
+\paragraph{Urban:}Testovaná hodnota $EU=K=2$ v intervalu neleží, takže můžeme
+hypotézu vyváženosti na hladině významnosti 5\% zamítnout ve prospěch
+alternativy, že je pravděpodobnost, že $EU=2$ je významně odlišná.
+
+\clearpage
+    \subsection{Úkol 7}\label{uxfakol-7}
+
+\begin{quote}
+(2b) Na hladině spolehlivosti 5\% otestujte, jestli mají pozorované
+skupiny stejnou střední hodnotu. Typ testu a alternativy stanovte tak,
+aby vaše volba nejlépe korespondovala s povahou zkoumaného problému.
+\end{quote}
+
+\noindent Z povahy testovaných skupin můžeme předpokládat, že střední hodnota
+cholesterolu u indiánů žijícich ve měste bude větší něž u tich žijícich
+na venkově. Proto vyberáme alternativní hypotézu $H_A:\ EU > ER$
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} EU \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{mean}\PY{p}{(}urban\PY{p}{)}
+        ER \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{mean}\PY{p}{(}rural\PY{p}{)}
+        n \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}urban\PY{p}{)}
+        
+        error \PY{o}{\PYZlt{}\PYZhy{}} qt\PY{p}{(}\PY{l+m}{0.95}\PY{p}{,} df\PY{o}{=}n\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{o}{*}s\PY{o}{/}\PY{k+kp}{sqrt}\PY{p}{(}n\PY{p}{)}
+        
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Střední hodnota pro urban EU =\PYZdq{}}\PY{p}{,}EU\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Střední hodnota pro rural ER =\PYZdq{}}\PY{p}{,}ER\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Spodná hranica jednostranního konfidenčního intervalu pro EU je: \PYZdq{}}\PY{p}{,}EU\PY{o}{\PYZhy{}}error\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Střední hodnota pro urban EU = 216.8667 
+Střední hodnota pro rural ER = 157 
+Spodná hranica jednostranního konfidenčního intervalu pro EU je:  208.9126 
+    \end{Verbatim}
+
+\noindent Testujeme hypotézu $H_0:\ EU = ER$ proti alternativě $H_A:\ EU > ER$. 
+Jednostranný $95\%$ konfidenční interval pro $EU$ je $(208,9126,+\infty)$. 
+Střední hodnota $ER = 157$ je menší než dolní hranice intervalu $208,9126$. 
+Hypotézu $H_0$ na hladině významnosti $5\%$ můžeme tedy zamítnout ve prospěch alternativy že $EU > ER$.
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
