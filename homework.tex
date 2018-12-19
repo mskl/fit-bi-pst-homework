@@ -675,27 +675,40 @@ cholesterolu u indiánů žijících ve městě bude vyšší, něž u těch ži
 na venkově. Proto vybíráme alternativní hypotézu $H_A:\ EU > ER$
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} EU \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{mean}\PY{p}{(}urban\PY{p}{)}
+{\color{incolor}In [{\color{incolor}6}]:} EU \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{mean}\PY{p}{(}urban\PY{p}{)}
         ER \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{mean}\PY{p}{(}rural\PY{p}{)}
-        n \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}urban\PY{p}{)}
-        
-        error \PY{o}{\PYZlt{}\PYZhy{}} qt\PY{p}{(}\PY{l+m}{0.95}\PY{p}{,} df\PY{o}{=}n\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{o}{*}s\PY{o}{/}\PY{k+kp}{sqrt}\PY{p}{(}n\PY{p}{)}
-        
         \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Střední hodnota pro urban EU =\PYZdq{}}\PY{p}{,}EU\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
         \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Střední hodnota pro rural ER =\PYZdq{}}\PY{p}{,}ER\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
-        \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Spodní hranice jednostranného konfidenčního intervalu pro EU je:\PYZdq{}}\PY{p}{,}EU\PY{o}{\PYZhy{}}error\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+        
+        alternative \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{greater\PYZdq{}}
+        conf\PYZus{}level \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{0.95}
+        t.test\PY{p}{(}urban\PY{p}{,} mu\PY{o}{=}ER\PY{p}{,} alternative\PY{o}{=}alternative\PY{p}{,} conf.level \PY{o}{=} conf\PYZus{}level\PY{p}{)}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 Střední hodnota pro urban EU = 216.8667 
 Střední hodnota pro rural ER = 157 
-Spodní hranice jednostranného konfidenčního intervalu pro EU je: 208.9126 
     \end{Verbatim}
 
+    
+    \begin{verbatim}
+
+    One Sample t-test
+
+data:  urban
+t = 10.06, df = 44, p-value = 2.777e-13
+alternative hypothesis: true mean is greater than 157
+95 percent confidence interval:
+ 206.8677      Inf
+sample estimates:
+mean of x 
+ 216.8667 
+    \end{verbatim}
+
 \noindent Testujeme hypotézu $H_0:\ EU = ER$ proti alternativě $H_A:\ EU > ER$. 
-Jednostranný $95\%$ konfidenční interval pro $EU$ je $(208,9126,+\infty)$. 
-Střední hodnota $ER = 157$ je menší než dolní hranice intervalu $208,9126$. 
-Hypotézu $H_0$ na hladině významnosti $5\%$ můžeme tedy zamítnout ve prospěch alternativy $EU > ER$.
+Jednostranný $95\%$ konfidenční interval pro $EU$ je $(206.8677,+\infty)$. 
+Střední hodnota $ER = 157$ v intervalu neleží. 
+Hypotézu $H_0$ na hladině významnosti $5\%$ můžeme tedy zamítnout ve prospěch alternativy $H_A$.
 
     % Add a bibliography block to the postdoc
     
